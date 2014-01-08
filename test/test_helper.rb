@@ -15,19 +15,13 @@ require "minitest/autorun"
 require "minitest/reporters"
 MiniTest::Reporters.use!
 
-# This class is here only to trick shoulda into attaching itself to MiniTest due to: https://github.com/thoughtbot/shoulda-context/issues/38
-module ActiveSupport
-  class TestCase < MiniTest::Unit::TestCase
-  end
-end
-require "shoulda"
-require "shoulda-context"
-require "shoulda-matchers"
-
 require "active_support/test_case"
 require "action_controller"
 require "action_controller/test_case"
-require "active_support/testing/assertions"
+
+require "shoulda"
+require "shoulda-context"
+require "shoulda-matchers"
 
 # Make the code to be tested easy to load.
 $LOAD_PATH.unshift(File.dirname(__FILE__))
@@ -64,7 +58,6 @@ CreateValidationAudits.migrate("up")
 
 # Shutup.
 I18n.enforce_available_locales = false # TODO: remove this line when it's not needed anymore.
-
 
 require "assert_difference"
 class ActiveSupport::TestCase
