@@ -1,24 +1,56 @@
-# ValidationAuditor
+# Validation Auditor
 
-TODO: Write a gem description
+[![Build Status](https://travis-ci.org/watu/validation_auditor.png?branch=master)](https://travis-ci.org/watu/validation_auditor)
+[![Coverage Status](https://coveralls.io/repos/watu/validation_auditor/badge.png?branch=master)](https://coveralls.io/r/watu/validation_auditor?branch=master)
+[![Code Climate](https://codeclimate.com/github/watu/validation_auditor.png)](https://codeclimate.com/github/watu/validation_auditor)
+[![Gem Version](https://badge.fury.io/rb/validation_auditor.png)](http://badge.fury.io/rb/validation_auditor)
+
+A user visits your web app, tries to do something with it but it fails due to a validation error. Generally, the
+validation is stopping a user from doing something bad, but every now and then it's the validation that is bad. Don't
+you hate it when the credit card processor won't accept your name as written in the credit card due to an unexpected
+character and won't accept anything else because that's not your name? We all do.
+
+This gem allows you to easily keep a log of validation errors, so you can later inspect them to try to find those cases
+where things are going wrong.
+
+This gem was extracted out of a Ruby 1.9 / Rails 3.2 project, but it's being prepared for work with Ruby 2.0 /
+Rails 4.0. The core functionality should work with Ruby 1.9 / Rails 3.2, if it doesn't, it's a bug. The tests, at the
+moment, are heavily dependent on Rails 4.0.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'validation_auditor'
+    gem "validation_auditor"
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
+You need to install the migration file in your Rails project, which you can do by:
 
-    $ gem install validation_auditor
+    $ rails generate validation_auditor:install
 
 ## Usage
 
-TODO: Write usage instructions here
+After you run the migration, you need to enable the validation auditor in each model by calling the class method:
+`audit_validation_errors`, for example:
+
+    class Blog < ActiveRecord::Base
+      audit_validation_errors
+    end
+
+From then on, every time saving that record fails, a record will be saved to validation_audits with the failure message
+and some extra information.
+
+If you enable validation audit on the controller, by calling `audit_validation_errors` as in:
+
+    class BlogsController < ApplicationController
+      audit_validation_errors
+    end
+
+then you'll also get params, url and user agent in the validation audit. This breaks the model-controller separation, so
+it's optional.
 
 ## Contributing
 
