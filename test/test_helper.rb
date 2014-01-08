@@ -67,9 +67,6 @@ I18n.enforce_available_locales = false # TODO: remove this line when it's not ne
 
 
 require "assert_difference"
-class ActionController::TestCase
-  include AssertDifference
-end
-class MiniTest::Unit::TestCase # adding AssertDifference to MiniTest should happen after adding it to ActionController, otherwise the gates to hell open.
+class ActiveSupport::TestCase
   include AssertDifference
 end

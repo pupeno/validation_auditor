@@ -3,7 +3,7 @@
 
 require_relative "test_helper"
 
-class ModelTest < MiniTest::Unit::TestCase
+class ModelTest < ActiveSupport::TestCase
   should "not create a validation audit when no errors occurs" do
     assert_difference "ValidationAuditor::ValidationAudit.count" => 0 do
       AuditedRecord.create!(name: "John Doe", email: "john.doe@example.com")
