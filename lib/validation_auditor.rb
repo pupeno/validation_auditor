@@ -39,6 +39,21 @@ module ValidationAuditor
     def self.request
       Thread.current[:validation_auditor_request]
     end
+
+    # Clean parameters before storing them in the database.
+    def self.clean_params(params)
+      cleaned_params = {}
+      params.each do |k, v|
+        cleaned_params[k] = if v.is_a? Hash
+                              clean_params(v) # clean params recursively.
+                            elsif v.is_a? ActionDispatch::Http::UploadedFile
+                              v.inspect # UploadedFiles cannot be yaml-serialized, so, we replace them with a string.
+                            else
+                              v
+                            end
+      end
+      cleaned_params
+    end
   end
 
   module Model
@@ -63,7 +78,7 @@ module ValidationAuditor
         end
         if ValidationAuditor::Controller.request.present?
           request = ValidationAuditor::Controller.request
-          va.params = request.params
+          va.params = ValidationAuditor::Controller.clean_params(request.params)
           va.url = request.url
           va.user_agent = request.env["HTTP_USER_AGENT"]
         end

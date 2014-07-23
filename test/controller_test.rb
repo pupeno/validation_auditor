@@ -39,6 +39,12 @@ class ControllerTest < ActionController::TestCase
     AuditedRecordsController.send(:include, @routes.url_helpers)
   end
 
+  should "clean params" do
+    cleaned_params = ValidationAuditor::Controller.clean_params({name: "John Doe", deep: {structure: {with: {file: ActionDispatch::Http::UploadedFile.new(tempfile: Tempfile.new("test.txt"))}}}})
+    assert_equal "John Doe", cleaned_params[:name]
+    assert cleaned_params[:deep][:structure][:with][:file].is_a? String
+  end
+
   should "not create a validation audit due to no validation failing when creating a new record" do
     assert_difference "ValidationAuditor::ValidationAudit.count" => 0 do
       post :create, audited_record: {name: "John Doe", email: "john.doe@example.com"}
@@ -48,6 +54,18 @@ class ControllerTest < ActionController::TestCase
   should "create a validation audit when creating a new record" do
     assert_difference "ValidationAuditor::ValidationAudit.count" => +1 do
       post :create, audited_record: {name: "John Doe"} # Missing email
+    end
+    audit = ValidationAuditor::ValidationAudit.order(:id).last
+    assert_nil audit.record # New records cannot be referenced because they don't exist...
+    assert_equal "AuditedRecord", audit.record_type # but we still record the name.
+    assert_equal audit.data["name"], "John Doe"
+    assert_nil audit.data["email"]
+    assert_equal ["can't be blank"], audit.failures[:email]
+  end
+
+  should "create a validation audit even when an uploaded file is in the params" do
+    assert_difference "ValidationAuditor::ValidationAudit.count" => +1 do
+      post :create, audited_record: {name: "John Doe", deep: {structure: {with: {file: ActionDispatch::Http::UploadedFile.new(tempfile: Tempfile.new("test.txt"))}}}} # Missing email and a deep structure with a file in it.
     end
     audit = ValidationAuditor::ValidationAudit.order(:id).last
     assert_nil audit.record # New records cannot be referenced because they don't exist...
