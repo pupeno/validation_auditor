@@ -76,6 +76,20 @@ class ControllerTest < ActionController::TestCase
     assert audit.params["deep"]["structure"]["with"]["file"].is_a? String
   end
 
+  should "not include filtered params in validation audits" do
+    assert_difference "ValidationAuditor::ValidationAudit.count" => +1 do
+      @request.env["action_dispatch.parameter_filter"] = [:password]
+      post :create, audited_record: {name: "John Doe"}, password: "secret" # Missing email and a password that should be filtered.
+    end
+    audit = ValidationAuditor::ValidationAudit.order(:id).last
+    assert_nil audit.record # New records cannot be referenced because they don't exist...
+    assert_equal "AuditedRecord", audit.record_type # but we still record the name.
+    assert_equal audit.data["name"], "John Doe"
+    assert_nil audit.data["email"]
+    assert_equal ["can't be blank"], audit.failures[:email]
+    assert_not_equal "secret", audit.params["password"]
+  end
+
   context "With a record" do
     setup do
       @audited_record = AuditedRecord.create(name: "John Doe", email: "john.doe@example.com")

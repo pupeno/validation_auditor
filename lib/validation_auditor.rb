@@ -78,7 +78,7 @@ module ValidationAuditor
         end
         if ValidationAuditor::Controller.request.present?
           request = ValidationAuditor::Controller.request
-          va.params = ValidationAuditor::Controller.clean_params(request.params)
+          va.params = ValidationAuditor::Controller.clean_params(request.filtered_parameters)
           va.url = request.url
           va.user_agent = request.env["HTTP_USER_AGENT"]
         end
