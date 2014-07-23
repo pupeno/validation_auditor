@@ -73,6 +73,7 @@ class ControllerTest < ActionController::TestCase
     assert_equal audit.data["name"], "John Doe"
     assert_nil audit.data["email"]
     assert_equal ["can't be blank"], audit.failures[:email]
+    assert audit.params["deep"]["structure"]["with"]["file"].is_a? String
   end
 
   context "With a record" do
