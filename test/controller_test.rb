@@ -65,7 +65,7 @@ class ControllerTest < ActionController::TestCase
 
   should "create a validation audit even when an uploaded file is in the params" do
     assert_difference "ValidationAuditor::ValidationAudit.count" => +1 do
-      post :create, audited_record: {name: "John Doe", deep: {structure: {with: {file: ActionDispatch::Http::UploadedFile.new(tempfile: Tempfile.new("test.txt"))}}}} # Missing email and a deep structure with a file in it.
+      post :create, audited_record: {name: "John Doe"}, deep: {structure: {with: {file: ActionDispatch::Http::UploadedFile.new(tempfile: Tempfile.new("test.txt"))}}} # Missing email and a deep structure with a file in it.
     end
     audit = ValidationAuditor::ValidationAudit.order(:id).last
     assert_nil audit.record # New records cannot be referenced because they don't exist...
