@@ -16,7 +16,10 @@ module ValidationAuditor
 
 
     if respond_to? :attr_accessible # For Rails < 4 or Rails >= 4 with attr_accessible added by a third party library.
-      attr_accessible
+      begin
+        attr_accessible
+      rescue RuntimeError # Rails 4 raises a RuntimeError when you call attr_accessible, but we still want to call it in case you added attr_accessible gem.
+      end
     end
   end
 
