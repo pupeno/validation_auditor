@@ -14,10 +14,9 @@ module ValidationAuditor
     serialize :data, Hash
     serialize :params, Hash
 
-    # Define no accessibility to the attributes but don't crash if attr_accessible is the default Rails 4 one, which raises an exception.
-    begin
-      attr_accessible # Nothing
-    rescue RuntimeError
+
+    if respond_to? :attr_accessible # For Rails < 4 or Rails >= 4 with attr_accessible added by a third party library.
+      attr_accessible
     end
   end
 
