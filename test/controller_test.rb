@@ -21,7 +21,11 @@ class AuditedRecordsController < ActionController::Base
   private
 
   def audited_record_params
-    params.require(:audited_record).permit(:name, :email)
+    if params.respond_to?(:permit) # strong_parameters is present.
+      params.require(:audited_record).permit(:name, :email)
+    else
+      params[:audited_record]
+    end
   end
 end
 
