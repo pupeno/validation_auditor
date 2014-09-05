@@ -1,6 +1,8 @@
 # encoding: UTF-8
 # Copyright © 2014, Watu
 
+require "rubygems"
+require "bundler/setup"
 require "bundler/gem_tasks"
 
 require "rake/testtask"
