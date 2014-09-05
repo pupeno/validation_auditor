@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/watu/validation_auditor.png?branch=master)](https://travis-ci.org/watu/validation_auditor)
 [![Coverage Status](https://coveralls.io/repos/watu/validation_auditor/badge.png?branch=master)](https://coveralls.io/r/watu/validation_auditor?branch=master)
 [![Code Climate](https://codeclimate.com/github/watu/validation_auditor.png)](https://codeclimate.com/github/watu/validation_auditor)
+[![Inline docs](http://inch-ci.org/github/watu/validation_auditor.png?branch=master)](http://inch-ci.org/github/watu/validation_auditor)
 [![Gem Version](https://badge.fury.io/rb/validation_auditor.png)](http://badge.fury.io/rb/validation_auditor)
 
 A user visits your web app, tries to do something with it but it fails due to a validation error. Generally, the
