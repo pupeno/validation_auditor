@@ -21,9 +21,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.required_ruby_version = ">= 1.9.3"
-  spec.add_dependency "activerecord", ">= 3.2.0"
-  spec.add_dependency "actionpack", ">= 3.2.0"
-  spec.add_dependency "railties", ">= 3.2.0"
+  spec.add_dependency "activerecord", ">= 3.0.0"
+  spec.add_dependency "actionpack", ">= 3.0.0"
+  spec.add_dependency "railties", ">= 3.0.0"
 
   spec.add_development_dependency "appraisal"
   spec.add_development_dependency "assert_difference"
