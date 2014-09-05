@@ -6,6 +6,8 @@ require "active_record"
 require "action_controller"
 
 module ValidationAuditor
+  mattr_accessor :exception_handler
+
   class ValidationAudit < ActiveRecord::Base
     belongs_to :record, :polymorphic => true
 
@@ -82,7 +84,13 @@ module ValidationAuditor
           va.url = request.url
           va.user_agent = request.env["HTTP_USER_AGENT"]
         end
-        va.save
+        va.save!
+      end
+    rescue Exception => e
+      if ValidationAuditor.exception_handler.nil?
+        raise # If there's no exception handler, just re-raise the exception.
+      else
+        ValidationAuditor.exception_handler.call(e, va)
       end
     end
   end

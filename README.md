@@ -53,6 +53,16 @@ If you enable validation audit on the controller, by calling `audit_validation_e
 then you'll also get params, url and user agent in the validation audit. This breaks the model-controller separation, so
 it's optional.
 
+If for some reason saving a validation audit fails, the exception will be left to propagate into your application so
+that no exception is silently swallowed. You may want to not let a secondary system, like auditing, to stop your
+application for working (depending on how critical auditing is for you). If that's the case, you can define an
+exception handler that can report in whatever fashion you normally report exceptions to your dev team or silently
+swallow the exception. This may or may not work in Rails < 4.
+
+    ValidationAuditor.exception_handler = lambda do |e, va|
+        puts "When trying to save validation audit #{va}, exception #{e} was encountered."
+    end
+
 ## Contributing
 
 1. Fork it

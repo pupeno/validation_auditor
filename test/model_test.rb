@@ -2,6 +2,7 @@
 # Copyright © 2014, Watu
 
 require_relative "test_helper"
+require "rails/version" # Required to access Rails::VERSION::MAJOR
 
 class ModelTest < ActiveSupport::TestCase
   should "not create a validation audit when no errors occurs" do
@@ -45,10 +46,32 @@ class ModelTest < ActiveSupport::TestCase
     end
   end
 
-  should "not create a validation audit for non audited models" do
-    assert_difference "ValidationAuditor::ValidationAudit.count" => 0 do
-      NonAuditedRecord.create(name: "John Doe") # Missing email.
+  if Rails::VERSION::MAJOR >= 4 # Prior to Rails 4, it seems exceptions in after_rollback were silently swallowed: https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/6064-exceptions-from-after_commit-and-after_rollback-from-observers-are-quietly-swallowed
+    should "let exceptions propagate if no handler has been set up" do
+      ValidationAuditor::ValidationAudit.any_instance.expects(:save!).raises(Exception, "Something went wrong saving the audit")
+      assert_raises Exception do
+        AuditedRecord.create(name: "John Doe")
+      end
     end
+  end
+
+  should "not let exceptions propagate when a handler has been set up" do
+    exception_message = "Something went wrong saving the audit"
+    exception_handler_called = false
+    ValidationAuditor.exception_handler = lambda do |e, va|
+      assert e.is_a?(Exception)
+      assert_equal e.message, exception_message
+      assert va.is_a?(ValidationAuditor::ValidationAudit)
+      exception_handler_called = true
+    end
+    ValidationAuditor::ValidationAudit.any_instance.stubs(:save!).raises(Exception, exception_message)
+
+    AuditedRecord.create(name: "John Doe")
+
+    assert exception_handler_called
+
+    # teardown
+    ValidationAuditor.exception_handler = nil
   end
 end
 
