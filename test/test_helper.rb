@@ -14,11 +14,9 @@ Coveralls.wear! # Comment out this line to have the local coverage generated.
 require "minitest/autorun"
 require "minitest/reporters"
 MiniTest::Reporters.use!
-
 require "active_support/test_case"
 require "action_controller"
 require "action_controller/test_case"
-
 require "shoulda"
 require "shoulda-context"
 require "shoulda-matchers"
