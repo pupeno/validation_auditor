@@ -43,18 +43,20 @@ module ValidationAuditor
     end
 
     # Clean parameters before storing them in the database.
-    def self.clean_params(params)
-      cleaned_params = {}
-      params.each do |k, v|
-        cleaned_params[k] = if v.is_a? Hash
-                              clean_params(v) # clean params recursively.
-                            elsif v.is_a? ActionDispatch::Http::UploadedFile
-                              v.inspect # UploadedFiles cannot be yaml-serialized, so, we replace them with a string.
-                            else
-                              v
-                            end
+    def self.clean_params(param)
+      if param.is_a? Hash
+        cleaned_params = {}
+        param.each do |k, v|
+          cleaned_params[k] = clean_params(v) # clean each value
+        end
+        cleaned_params
+      elsif param.is_a? Array
+        param.map { |v| clean_params(v) } # clean each value
+      elsif param.is_a? ActionDispatch::Http::UploadedFile
+        param.inspect # UploadedFiles cannot be yaml-serialized, so, we replace them with a string.
+      else
+        param
       end
-      cleaned_params
     end
   end
 

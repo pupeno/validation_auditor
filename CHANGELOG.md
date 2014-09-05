@@ -1,3 +1,7 @@
+## validation_auditor 0.2.1 (Sep 5, 2014) ##
+
+* When cleaning params to save them as yaml, also clean each element of arrays.
+
 ## validation_auditor 0.2.0 (Jul 23, 2014) ##
 
 * Respect the filter_parameters configuration from Rails.
