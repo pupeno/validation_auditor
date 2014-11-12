@@ -16,11 +16,19 @@ module ValidationAuditor
     serialize :data, Hash
     serialize :params, Hash
 
-
     if respond_to? :attr_accessible # For Rails < 4 or Rails >= 4 with attr_accessible added by a third party library.
       begin
         attr_accessible
       rescue RuntimeError # Rails 4 raises a RuntimeError when you call attr_accessible, but we still want to call it in case you added attr_accessible gem.
+      end
+    end
+
+    def add_controller
+      if ValidationAuditor::Controller.request.present?
+        request = ValidationAuditor::Controller.request
+        self.params = ValidationAuditor::Controller.clean_params(request.filtered_parameters)
+        self.url = request.url
+        self.user_agent = request.env["HTTP_USER_AGENT"]
       end
     end
   end
@@ -70,29 +78,23 @@ module ValidationAuditor
     end
 
     def audit_validation
-      if !errors.empty? # We don't use :valid? to avoid re-running validations
-        va = ValidationAudit.new
-        va.failures = self.errors.to_hash
-        va.failure_messages = self.errors.full_messages.to_a
-        va.data = self.attributes
-        if self.new_record? # For new records
-          va.record_type = self.class.name # we only store the class's name.
-        else
-          va.record = self
-        end
-        if ValidationAuditor::Controller.request.present?
-          request = ValidationAuditor::Controller.request
-          va.params = ValidationAuditor::Controller.clean_params(request.filtered_parameters)
-          va.url = request.url
-          va.user_agent = request.env["HTTP_USER_AGENT"]
-        end
-        va.save!
+      return if errors.empty? # We don't use :valid? to avoid re-running validations
+      validatio_audit = ValidationAudit.new
+      validatio_audit.failures = self.errors.to_hash
+      validatio_audit.failure_messages = self.errors.full_messages.to_a
+      validatio_audit.data = self.attributes
+      if self.new_record? # For new records
+        validatio_audit.record_type = self.class.name # we only store the class's name.
+      else
+        validatio_audit.record = self
       end
+      validatio_audit.add_controller
+      validatio_audit.save!
     rescue Exception => e
       if ValidationAuditor.exception_handler.nil?
         raise # If there's no exception handler, just re-raise the exception.
       else
-        ValidationAuditor.exception_handler.call(e, va)
+        ValidationAuditor.exception_handler.call(e, validatio_audit)
       end
     end
   end

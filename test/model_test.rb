@@ -73,6 +73,26 @@ class ModelTest < ActiveSupport::TestCase
     # teardown
     ValidationAuditor.exception_handler = nil
   end
+
+  should "add controller information if possible" do
+    params = {"hello" => "world", "universe" => "42"}
+    url = "https://example.com/hello/world"
+    env = {"HTTP_USER_AGENT" => "NCSA_Mosaic/2.0"}
+    request = mock("request") do
+      stubs(:present?).returns(true)
+      stubs(:filtered_parameters).returns(params)
+      stubs(:url).returns(url)
+      stubs(:env).returns(env)
+    end
+    ValidationAuditor::Controller.stubs(:request).returns(request)
+    assert_difference "ValidationAuditor::ValidationAudit.count" => +1 do
+      AuditedRecord.create(name: "John Doe") # Missing email.
+    end
+    audit = ValidationAuditor::ValidationAudit.order(:id).last
+    assert_equal params, audit.params
+    assert_equal url, audit.url
+    assert_equal env["HTTP_USER_AGENT"], audit.user_agent
+  end
 end
 
 
