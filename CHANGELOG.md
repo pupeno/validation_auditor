@@ -1,5 +1,11 @@
 Authoritative changelog in README.md.
 
+## validation_auditor next version
+- Started testing Ruby 2.1.3 and 2.1.4.
+- Refactoring to make code more readable (increased code climate to 4.0).
+- Marked internal methods as private.
+- Improved documentation.
+
 ## validation_auditor 0.2.1 (Sep 5, 2014) ##
 - When cleaning params to save them as yaml, also clean each element of arrays.
 
