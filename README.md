@@ -64,6 +64,13 @@ swallow the exception. This may or may not work in Rails < 4.
         puts "When trying to save validation audit #{va}, exception #{e} was encountered."
     end
 
+## Users
+
+This gem is being used by:
+
+- [Watu](https://watuapp.com)
+- You? please, let us know if you are using this gem.
+
 ## Changelog
 
 ### validation_auditor next version
