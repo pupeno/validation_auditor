@@ -8,6 +8,7 @@ require "action_controller"
 module ValidationAuditor
   mattr_accessor :exception_handler
 
+  # Validation audit model.
   class ValidationAudit < ActiveRecord::Base
     belongs_to :record, :polymorphic => true
 
