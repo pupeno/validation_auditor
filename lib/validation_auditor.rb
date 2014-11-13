@@ -42,6 +42,8 @@ module ValidationAuditor
       end
     end
 
+    private
+
     def make_request_auditable
       Thread.current[:validation_auditor_request] = self.request
     end
@@ -76,6 +78,8 @@ module ValidationAuditor
         after_rollback :audit_validation
       end
     end
+
+    private
 
     def audit_validation
       return if errors.empty? # We don't use :valid? to avoid re-running validations
