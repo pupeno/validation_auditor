@@ -23,6 +23,12 @@ module ValidationAuditor
       end
     end
 
+    # If available, add controller data to this validation audit. This will include:
+    # - params
+    # - url
+    # - user_agent
+    #
+    # @see ValidationAuditor::Controller::ClassMethods#audit_validation_errors
     def add_controller
       if ValidationAuditor::Controller.request.present?
         request = ValidationAuditor::Controller.request
@@ -33,10 +39,27 @@ module ValidationAuditor
     end
   end
 
+  # Controller side of audit validations.
+  #
+  # @see ValidationAuditor::Controller::ClassMethods#audit_validation_errors
   module Controller
     extend ActiveSupport::Concern
 
+    # Class methods accessible in controllers (classes inheriting from ActionController::Base).
     module ClassMethods
+      # Enable validation audits for this controller. This is not essential to be able to audit validations, but it
+      # enhances the reports with:
+      # - params
+      # - url
+      # - user_agent
+      #
+      # For example:
+      #
+      #   class BlogsController < ApplicationController
+      #     audit_validation_errors
+      #   end
+      #
+      # @see ValidationAuditor::Model::ClassMethods#audit_validation_errors
       def audit_validation_errors
         before_filter :make_request_auditable
       end
@@ -44,15 +67,26 @@ module ValidationAuditor
 
     private
 
+    # Make the request available for later adding some of its details to the validation audit. This method is
+    # automatically called as before_filter when you enable validation audits for a controller.
+    #
+    # @see ValidationAuditor::Controller::ClassMethods#audit_validation_errors
     def make_request_auditable
       Thread.current[:validation_auditor_request] = self.request
     end
 
+    # Getter for the request for the audit.
+    #
+    # @see ValidationAuditor::Controller::ClassMethods#audit_validation_errors
     def self.request
       Thread.current[:validation_auditor_request]
     end
 
     # Clean parameters before storing them in the database.
+    #
+    # This method gets sure we don't have unserializable values, like UploadedFiles.
+    # @param param [Hash] Hash of params as created by Rails
+    # @return [Hash] A hash without those problematic values.
     def self.clean_params(param)
       if param.is_a? Hash
         cleaned_params = {}
@@ -70,10 +104,21 @@ module ValidationAuditor
     end
   end
 
+  # Model side of audit validations.
+  #
+  # @see ValidationAuditor::Model::ClassMethods#audit_validation_errors
   module Model
     extend ActiveSupport::Concern
 
+    # Class methods accessible in models (classes inheriting from ActiveRecord::Base).
     module ClassMethods
+      # Enable validation audits for a model. For example:
+      #
+      #   class Blog < ActiveRecord::Base
+      #     audit_validation_errors
+      #   end
+      #
+      # @see ValidationAuditor::Controller::ClassMethods#audit_validation_errors
       def audit_validation_errors
         after_rollback :audit_validation
       end
@@ -81,6 +126,10 @@ module ValidationAuditor
 
     private
 
+    # Perform the actual audit validation. This method is automatically called on rollback when you enable validation on
+    # a model.
+    #
+    # @see ValidationAuditor::Model::ClassMethods#audit_validation_errors
     def audit_validation
       return if errors.empty? # We don't use :valid? to avoid re-running validations
       validatio_audit = ValidationAudit.new

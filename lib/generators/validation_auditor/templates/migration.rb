@@ -1,4 +1,6 @@
+# Create table to store validation errors.
 class CreateValidationAudits < ActiveRecord::Migration
+  # Create table to store validation errors.
   def up
     create_table :validation_audits do |t|
       t.integer :record_id

@@ -5,13 +5,14 @@ require "rails/generators"
 require "rails/generators/migration"
 require "rails/generators/active_record"
 
-# Extend the DelayedJobGenerator so that it creates an AR migration
 module ValidationAuditor
+  # Generator to be able to run `rails generate validation_auditor:install`
   class InstallGenerator < Rails::Generators::Base
     include Rails::Generators::Migration
 
     self.source_paths << File.join(File.dirname(__FILE__), "templates")
 
+    # Create migration files.
     def create_migration_file
       migration_template "migration.rb", "db/migrate/create_validation_audits.rb"
     end
