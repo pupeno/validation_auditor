@@ -10,6 +10,8 @@ SimpleCov.start do
   add_filter "/test/"
 end
 Coveralls.wear! # Comment out this line to have the local coverage generated.
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 
 require "minitest/autorun"
 require "minitest/reporters"
