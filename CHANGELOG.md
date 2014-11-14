@@ -1,6 +1,6 @@
 Authoritative changelog in README.md.
 
-## validation_auditor next version
+## validation_auditor 1.0.0 (Nov 17, 2014)
 - Started testing Ruby 2.1.3 and 2.1.4.
 - Refactoring to make code more readable (increased code climate to 4.0).
 - Marked internal methods as private.
