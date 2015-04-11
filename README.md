@@ -17,14 +17,23 @@ where things are going wrong.
 
 This gem supports
 [Rails 4.0 and 4.1 running on Ruby 1.9, 2.0 or 2.1](https://travis-ci.org/watu/validation_auditor) (latest stable
-version of each). Rails 3.2 is not being actively supported because of the time investment required to maintain the test
-suite but no specific action against Rails 3.2 is being taken and re-enabling the 3.2 test suite is not discarded.
+version of each).
+
+Rails 3.2 is not being actively supported because of the time investment required to maintain the test
+suite but no specific action against Rails 3.2 is being taken and re-enabling the 3.2 test suite is not discarded. The
+last branch to test and support Rails 3.2 was [v1.0](https://github.com/watu/validation_auditor/tree/v1.0) and the last
+release was [v1.0.0](https://github.com/watu/validation_auditor/releases/tag/v1.0.0).
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
     gem "validation_auditor"
+
+If you are on Rails < 4.0, then you need to install the latest version from the
+[1.0 branch](https://github.com/watu/validation_auditor/tree/v1.0):
+
+    gem "validation_auditor", "~> 1.0.0"
 
 And then execute:
 
@@ -73,6 +82,9 @@ This gem is being used by:
 - You? please, let us know if you are using this gem.
 
 ## Changelog
+
+### validation_auditor next_release
+- Dropped testing and official support for Rails 3.2.
 
 ### validation_auditor 1.0.0 (Nov 17, 2014)
 - Started testing Ruby 2.1.3 and 2.1.4.
