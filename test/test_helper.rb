@@ -22,6 +22,7 @@ require "action_controller/test_case"
 require "shoulda"
 require "shoulda-context"
 require "shoulda-matchers"
+require "mocha/mini_test"
 
 # Make the code to be tested easy to load.
 $LOAD_PATH.unshift(File.dirname(__FILE__))
@@ -64,3 +65,5 @@ require "assert_difference"
 class ActiveSupport::TestCase
   include AssertDifference
 end
+
+ActiveSupport.test_order = :random if ActiveSupport.respond_to?(:test_order=) # Rails 4.2 raises a warning without this because Rails 5.0 changes from :sorted to :random
