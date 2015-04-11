@@ -15,9 +15,10 @@ character and won't accept anything else because that's not your name? We all do
 This gem allows you to easily keep a log of validation errors, so you can later inspect them to try to find those cases
 where things are going wrong.
 
-This gem supports 
-[Rails 3.2, 4.0 and 4.1 running on Ruby 1.9, 2.0 or 2.1](https://travis-ci.org/watu/validation_auditor) (latest stable
-version of each).
+This gem supports
+[Rails 4.0 and 4.1 running on Ruby 1.9, 2.0 or 2.1](https://travis-ci.org/watu/validation_auditor) (latest stable
+version of each). Rails 3.2 is not being actively supported because of the time investment required to maintain the test
+suite but no specific action against Rails 3.2 is being taken and re-enabling the 3.2 test suite is not discarded.
 
 ## Installation
 
