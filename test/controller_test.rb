@@ -1,5 +1,5 @@
 # encoding: UTF-8
-# Copyright © 2014, Watu
+# Copyright © 2014, 2015 Carousel Apps
 
 require_relative "test_helper"
 

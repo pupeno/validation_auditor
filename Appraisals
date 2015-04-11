@@ -1,4 +1,4 @@
-# Copyright © 2014, Watu
+# Copyright © 2014, 2015 Carousel Apps
 
 # Rails 3.2 is not being actively tested, if this doesn't change in the future, this should be removed.
 # appraise "rails-3_2" do
