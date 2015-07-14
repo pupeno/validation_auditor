@@ -9,10 +9,10 @@ Gem::Specification.new do |spec|
   spec.name          = "validation_auditor"
   spec.version       = ValidationAuditor::VERSION
   spec.authors       = ["J. Pablo Fernández"]
-  spec.email         = ["pupeno@watuapp.com"]
+  spec.email         = ["pupeno@carouselapps.com"]
   spec.description   = %q{Log validation errors to the database for later inspection.}
   spec.summary       = %q{Log validation errors to the database for later inspection.}
-  spec.homepage      = "https://github.com/watu/validation_auditor"
+  spec.homepage      = "https://github.com/carouselapps/validation_auditor"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
