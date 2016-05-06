@@ -1,5 +1,5 @@
 # encoding: UTF-8
-# Copyright © 2012, 2013, 2014, 2015 Carousel Apps
+# Copyright © 2012, 2013, 2014, 2015, 2016 José Pablo Fernández Silva
 
 require "validation_auditor/version"
 require "active_record"

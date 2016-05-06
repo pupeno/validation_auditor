@@ -1,5 +1,5 @@
 # encoding: UTF-8
-# Copyright © 2014, 2015 Carousel Apps
+# Copyright © 2014, 2015, 2016 José Pablo Fernández Silva
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
@@ -9,10 +9,10 @@ Gem::Specification.new do |spec|
   spec.name          = "validation_auditor"
   spec.version       = ValidationAuditor::VERSION
   spec.authors       = ["J. Pablo Fernández"]
-  spec.email         = ["pupeno@carouselapps.com"]
+  spec.email         = ["pupeno@pupeno.com"]
   spec.description   = %q{Log validation errors to the database for later inspection.}
   spec.summary       = %q{Log validation errors to the database for later inspection.}
-  spec.homepage      = "https://github.com/carouselapps/validation_auditor"
+  spec.homepage      = "https://github.com/pupeno/validation_auditor"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
