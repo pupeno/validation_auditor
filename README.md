@@ -15,14 +15,17 @@ character and won't accept anything else because that's not your name? We all do
 This gem allows you to easily keep a log of validation errors, so you can later inspect them to try to find those cases
 where things are going wrong.
 
-This gem supports
-[Rails 4.0, 4.1 and 4.2 running on Ruby 1.9, 2.0 or 2.1](https://travis-ci.org/pupeno/validation_auditor) (latest stable
-version of each).
+This gem supports [Rails 4.0 through 4.2 running on Ruby 1.9 through 2.3](https://travis-ci.org/pupeno/validation_auditor)
+(latest stable version of each).
 
-Rails 3.2 is not being actively supported because of the time investment required to maintain the test
-suite but no specific action against Rails 3.2 is being taken and re-enabling the 3.2 test suite is not discarded. The
-last branch to test and support Rails 3.2 was [v1.0](https://github.com/pupeno/validation_auditor/tree/v1.0) and the last
-release was [v1.0.0](https://github.com/pupeno/validation_auditor/releases/tag/v1.0.0).
+Ruby 1.9 and 2.1 are not being actively tested due to issues with bundler in the continuous integration server. Tests
+for Ruby 2.0 should ensure 2.1 works fine anyway, Ruby 1.9 might accidentally become unsupported, please, [report a bug](https://github.com/pupeno/validation_auditor/issues)
+if you experience.
+
+Rails 3.2 is not being actively supported because of the time investment required to maintain the test suite but no
+specific action against Rails 3.2 is being taken and re-enabling the 3.2 test suite is not discarded. The last branch to
+test and support Rails 3.2 was [v1.0](https://github.com/pupeno/validation_auditor/tree/v1.0) and the last release was
+[v1.0.0](https://github.com/pupeno/validation_auditor/releases/tag/v1.0.0).
 
 ## Installation
 
