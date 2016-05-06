@@ -6,6 +6,8 @@ rvm:
   - "2.1.3"
   - "2.1.4"
   - "2.2.1"
+  - "2.3.0"
+  - "2.3.1"
 gemfile:
 # Rails 3.2 is not being actively tested, if this doesn't change in the future, this should be removed.
 #  - gemfiles/rails_3_2.gemfile
