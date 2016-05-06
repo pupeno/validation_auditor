@@ -1,11 +1,11 @@
 # Validation Auditor
 
-[![Build Status](https://travis-ci.org/carouselapps/validation_auditor.png?branch=master)](https://travis-ci.org/carouselapps/validation_auditor)
-[![Coverage Status](https://coveralls.io/repos/carouselapps/validation_auditor/badge.png?branch=master)](https://coveralls.io/r/carouselapps/validation_auditor?branch=master)
-[![Code Climate](https://codeclimate.com/github/carouselapps/validation_auditor.png)](https://codeclimate.com/github/carouselapps/validation_auditor)
-[![Inline docs](http://inch-ci.org/github/carouselapps/validation_auditor.png?branch=master)](http://inch-ci.org/github/carouselapps/validation_auditor)
+[![Build Status](https://travis-ci.org/pupeno/validation_auditor.png?branch=master)](https://travis-ci.org/pupeno/validation_auditor)
+[![Coverage Status](https://coveralls.io/repos/pupeno/validation_auditor/badge.png?branch=master)](https://coveralls.io/r/pupeno/validation_auditor?branch=master)
+[![Code Climate](https://codeclimate.com/github/pupeno/validation_auditor.png)](https://codeclimate.com/github/pupeno/validation_auditor)
+[![Inline docs](http://inch-ci.org/github/pupeno/validation_auditor.png?branch=master)](http://inch-ci.org/github/pupeno/validation_auditor)
 [![Gem Version](https://badge.fury.io/rb/validation_auditor.png)](http://badge.fury.io/rb/validation_auditor)
-[![Dependency Status](https://gemnasium.com/carouselapps/validation_auditor.svg)](https://gemnasium.com/carouselapps/validation_auditor)
+[![Dependency Status](https://gemnasium.com/pupeno/validation_auditor.svg)](https://gemnasium.com/pupeno/validation_auditor)
 
 A user visits your web app, tries to do something with it but it fails due to a validation error. Generally, the
 validation is stopping a user from doing something bad, but every now and then it's the validation that is bad. Don't
@@ -16,13 +16,13 @@ This gem allows you to easily keep a log of validation errors, so you can later 
 where things are going wrong.
 
 This gem supports
-[Rails 4.0 and 4.1 running on Ruby 1.9, 2.0 or 2.1](https://travis-ci.org/carouselapps/validation_auditor) (latest stable
+[Rails 4.0 and 4.1 running on Ruby 1.9, 2.0 or 2.1](https://travis-ci.org/pupeno/validation_auditor) (latest stable
 version of each).
 
 Rails 3.2 is not being actively supported because of the time investment required to maintain the test
 suite but no specific action against Rails 3.2 is being taken and re-enabling the 3.2 test suite is not discarded. The
-last branch to test and support Rails 3.2 was [v1.0](https://github.com/carouselapps/validation_auditor/tree/v1.0) and the last
-release was [v1.0.0](https://github.com/carouselapps/validation_auditor/releases/tag/v1.0.0).
+last branch to test and support Rails 3.2 was [v1.0](https://github.com/pupeno/validation_auditor/tree/v1.0) and the last
+release was [v1.0.0](https://github.com/pupeno/validation_auditor/releases/tag/v1.0.0).
 
 ## Installation
 
@@ -31,7 +31,7 @@ Add this line to your application's Gemfile:
     gem "validation_auditor"
 
 If you are on Rails < 4.0, then you need to install the latest version from the
-[1.0 branch](https://github.com/carouselapps/validation_auditor/tree/v1.0):
+[1.0 branch](https://github.com/pupeno/validation_auditor/tree/v1.0):
 
     gem "validation_auditor", "~> 1.0.0"
 
