@@ -16,7 +16,7 @@ This gem allows you to easily keep a log of validation errors, so you can later 
 where things are going wrong.
 
 This gem supports
-[Rails 4.0 and 4.1 running on Ruby 1.9, 2.0 or 2.1](https://travis-ci.org/pupeno/validation_auditor) (latest stable
+[Rails 4.0, 4.1 and 4.2 running on Ruby 1.9, 2.0 or 2.1](https://travis-ci.org/pupeno/validation_auditor) (latest stable
 version of each).
 
 Rails 3.2 is not being actively supported because of the time investment required to maintain the test
