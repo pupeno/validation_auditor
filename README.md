@@ -89,7 +89,8 @@ This gem is being used by:
 ### validation_auditor next_release
 - Dropped testing and official support for Rails 3.2.
 - Added testing and official support for Rails 4.2.
-- Added testing and official support for Ruby 2.2.1.
+- Added testing and official support for Ruby 2.2.X.
+- Added testing and official support for Ruby 2.3.X
 
 ### validation_auditor 1.0.0 (Nov 17, 2014)
 - Started testing Ruby 2.1.3 and 2.1.4.
