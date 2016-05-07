@@ -11,9 +11,22 @@ class ModelTest < ActiveSupport::TestCase
     end
   end
 
-  should "create a validation audit when an errors occur for a new record" do
+  should "create a validation audit when an errors occur for a new record when calling create" do
     assert_difference "ValidationAuditor::ValidationAudit.count" => +1 do
       AuditedRecord.create(name: "John Doe") # Missing email.
+    end
+    audit = ValidationAuditor::ValidationAudit.order(:id).last
+    assert_nil audit.record # New records cannot be referenced because they don't exist...
+    assert_equal "AuditedRecord", audit.record_type # but we still record the name.
+    assert_equal audit.data["name"], "John Doe"
+    assert_nil audit.data["email"]
+    assert_equal ["can't be blank"], audit.failures[:email]
+  end
+
+  should "create a validation audit when an errors occur for a new record when calling save" do
+    audited_record = AuditedRecord.new(name: "John Doe") # Missing email.
+    assert_difference "ValidationAuditor::ValidationAudit.count" => +1 do
+      audited_record.save
     end
     audit = ValidationAuditor::ValidationAudit.order(:id).last
     assert_nil audit.record # New records cannot be referenced because they don't exist...
