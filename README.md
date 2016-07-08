@@ -82,7 +82,8 @@ then swallow the exception. This may or may not work in Rails < 4.
 This gem is being used by:
 
 - [Watu](https://watuapp.com)
-- You? please, let us know if you are using this gem.
+- [Qredo](https://qredo.com)
+- You? please, [let me know](mailto:pupeno@pupeno.com) if you are using this gem.
 
 ## Changelog
 
