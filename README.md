@@ -5,7 +5,6 @@
 [![Code Climate](https://codeclimate.com/github/pupeno/validation_auditor.png)](https://codeclimate.com/github/pupeno/validation_auditor)
 [![Inline docs](http://inch-ci.org/github/pupeno/validation_auditor.png?branch=master)](http://inch-ci.org/github/pupeno/validation_auditor)
 [![Gem Version](https://badge.fury.io/rb/validation_auditor.png)](http://badge.fury.io/rb/validation_auditor)
-[![Dependency Status](https://gemnasium.com/pupeno/validation_auditor.svg)](https://gemnasium.com/pupeno/validation_auditor)
 
 A user visits your web app, tries to do something with it but it fails due to a validation error. Generally, the
 validation is stopping a user from doing something bad, but every now and then it's the validation that is bad. Don't
