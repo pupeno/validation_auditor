@@ -1,8 +1,11 @@
+<%# Copyright © 2014-2021 José Pablo Fernández Silva -%>
+# frozen_string_literal: true
+
 # Create table to store validation errors.
-class CreateValidationAudits < ActiveRecord::Migration
+class CreateValidationAudits < ActiveRecord::Migration<%= migration_version %>
   # Create table to store validation errors.
   def up
-    create_table :validation_audits do |t|
+    create_table :validation_audits<%= migration_primary_key_type_string %> do |t|
       t.integer :record_id
       t.string :record_type
       t.text :failure_messages
