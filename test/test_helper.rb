@@ -1,5 +1,4 @@
-# encoding: UTF-8
-# Copyright © 2013, 2014, 2015, 2016 José Pablo Fernández Silva
+# Copyright © 2013-2021 José Pablo Fernández Silva
 
 require "rubygems"
 
@@ -52,6 +51,7 @@ class AuditedRecord < ActiveRecord::Base
   audit_validation_errors
   validates :email, presence: true
 end
+
 class NonAuditedRecord < ActiveRecord::Base
   validates :email, presence: true
 end

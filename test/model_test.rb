@@ -1,5 +1,4 @@
-# encoding: UTF-8
-# Copyright © 2014, 2015, 2016 José Pablo Fernández Silva
+# Copyright © 2014-2021 José Pablo Fernández Silva
 
 require_relative "test_helper"
 require "rails/version" # Required to access Rails::VERSION::MAJOR
@@ -107,7 +106,3 @@ class ModelTest < ActiveSupport::TestCase
     assert_equal env["HTTP_USER_AGENT"], audit.user_agent
   end
 end
-
-
-
-

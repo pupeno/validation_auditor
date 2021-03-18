@@ -1,5 +1,4 @@
-# encoding: UTF-8
-# Copyright © 2012, 2013, 2014, 2015, 2016 José Pablo Fernández Silva
+# Copyright © 2012-2021 José Pablo Fernández Silva
 
 require "validation_auditor/version"
 require "active_record"
@@ -10,7 +9,7 @@ module ValidationAuditor
 
   # Validation audit model.
   class ValidationAudit < ActiveRecord::Base
-    belongs_to :record, :polymorphic => true
+    belongs_to :record, polymorphic: true
 
     serialize :failures, Hash
     serialize :failure_messages, Array
@@ -73,7 +72,7 @@ module ValidationAuditor
     #
     # @see ValidationAuditor::Controller::ClassMethods#audit_validation_errors
     def make_request_auditable
-      Thread.current[:validation_auditor_request] = self.request
+      Thread.current[:validation_auditor_request] = request
     end
 
     # Getter for the request for the audit.
@@ -134,10 +133,10 @@ module ValidationAuditor
     def audit_validation
       return if errors.empty? # We don't use :valid? to avoid re-running validations
       validatio_audit = ValidationAudit.new
-      validatio_audit.failures = self.errors.to_hash
-      validatio_audit.failure_messages = self.errors.full_messages.to_a
-      validatio_audit.data = self.attributes
-      if self.new_record? # For new records
+      validatio_audit.failures = errors.to_hash
+      validatio_audit.failure_messages = errors.full_messages.to_a
+      validatio_audit.data = attributes
+      if new_record? # For new records
         validatio_audit.record_type = self.class.name # we only store the class's name.
       else
         validatio_audit.record = self
