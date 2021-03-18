@@ -1,3 +1,5 @@
+**Update: this Gem is being modernized to support Rails 6.1, Ruby 2.7 and other modern versions. You can see the progress on: https://github.com/pupeno/validation_auditor/tree/modernize**
+
 # Validation Auditor
 
 [![Build Status](https://travis-ci.org/pupeno/validation_auditor.png?branch=master)](https://travis-ci.org/pupeno/validation_auditor)
